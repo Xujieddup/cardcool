@@ -1,0 +1,595 @@
+::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  /* background: transparent; */
+}
+::-webkit-scrollbar-thumb {
+  background-color: #b8b8b8;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #878987;
+}
+
+.flexPlace {
+  flex: 1;
+}
+.fontSize13 {
+  font-size: 13px;
+  line-height: 20px;
+}
+.fontSize12 {
+  font-size: 12px;
+  line-height: 20px;
+}
+/* .flexcc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.holder:hover {
+  cursor: pointer;
+}
+/* 隐藏滚动条 */
+.hideScrollbar::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+  scrollbar-width: none; /* firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.shrink {
+  flex-shrink: 0;
+}
+/* Mac 客户端 */
+.mac.electron .menuHeaderBox {
+  -webkit-app-region: drag;
+  padding-left: 80px;
+}
+.mac.electron .menuHeaderBox > div {
+  -webkit-app-region: no-drag;
+}
+.mac.electron .menuClose .mainHeaderBox {
+  padding-left: 70px;
+}
+
+/* 卡片编辑的模板选择样式 */
+.selectGroup .ant-select-item-option-grouped {
+  padding-inline-start: 12px;
+}
+.spaceSelectGroup .ant-select-item-option-grouped {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+}
+.selectGroup .ant-select-item-group {
+  padding: 4px 4px 4px 12px;
+}
+.selectGroup .ant-select-item-group button {
+  font-size: 12px;
+}
+/* 分组下拉菜单样式优化 */
+.ddmenu .ant-dropdown-menu-title-content {
+  width: 100%;
+}
+.ddmenu .ant-typography-secondary {
+  font-size: 12px;
+}
+.ddmenu .ant-dropdown-menu-item {
+  opacity: 0.65;
+}
+.ddmenu .ant-dropdown-menu-item-group-title {
+  font-size: 12px;
+  opacity: 0.6;
+}
+.ant-dropdown .ant-dropdown-menu.ddmenu .ant-dropdown-menu-item-group-list {
+  margin: 0;
+}
+.ant-dropdown .ddmenu {
+  width: 200px;
+  overflow-y: auto;
+}
+.ddmenu .ant-dropdown-menu-item:hover,
+.ant-dropdown .ddmenu .ant-dropdown-menu-item-active {
+  opacity: 1;
+}
+.ddmenu .ant-dropdown-menu-item:hover .flexPlace,
+.ant-dropdown .ddmenu .ant-dropdown-menu-item-active .flexPlace {
+  font-weight: 500;
+}
+.ant-dropdown .ddmenu::-webkit-scrollbar {
+  width: 6px;
+  background: inherit;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.ant-dropdown .ddmenu::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+/* 排序时的子节点数徽章 */
+.sortBadge {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+}
+/* 切换折叠展开状态动画 */
+.collapseBtn svg {
+  transition: transform 250ms ease;
+}
+.collapseBtn.collapsed svg {
+  transform: rotate(90deg);
+}
+.collapseBtn.collapsedRight svg {
+  transform: rotate(-90deg);
+}
+.collapseBtn.collapsedLeft svg {
+  transform: rotate(90deg);
+}
+/* 自定义下拉样式 */
+.idropdown .ant-typography {
+  font-size: 13px;
+  line-height: 20px;
+}
+.idropdown .ant-typography-secondary {
+  font-size: 12px;
+}
+.aligndropdown.idropdown .iicon {
+  margin-right: 6px;
+  vertical-align: text-bottom;
+}
+.aligndropdown .fixedBtn {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  opacity: 0.3;
+}
+.aligndropdown .fixedBtn:hover,
+.ant-dropdown-menu-item-selected .fixedBtn {
+  opacity: 1;
+}
+/*************************************** Antd Basic start ***************************************/
+.ant-tag {
+  margin: 1px 4px 1px 0;
+  vertical-align: bottom;
+  padding-inline: 6px;
+  border: none;
+  font-size: 11px;
+  height: 18px;
+  line-height: 18px;
+}
+/* .ant-tag {
+  display: flex;
+} */
+.ant-dropdown-menu .iicon {
+  font-size: 14px;
+  margin-right: 8px;
+}
+.ant-select-item-option-disabled {
+  opacity: 0.5;
+}
+.ant-btn.ant-btn-sm {
+  font-size: 13px;
+}
+.ant-select-multiple.ant-select-sm .ant-select-selection-item {
+  height: 18px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.ant-select-sm .ant-select-selection-item-content {
+  font-size: 13px;
+  line-height: 16px;
+}
+.ant-modal-content .ant-btn:focus-visible {
+  outline: none;
+}
+/* 前置选择器 */
+.beforeSelect {
+  text-align: center;
+}
+.beforeSelect .ant-select-item-group {
+  padding: 5px 0;
+}
+.beforeSelect .ant-select-item-option-grouped {
+  padding-inline-start: 4px;
+  padding-inline-end: 4px;
+}
+/* 背景色为 B500 时，链接颜色被覆盖 */
+.B500 a {
+  color: #69b1ff;
+}
+.B500 a:hover {
+  color: #0c296e;
+}
+/*************************************** Antd Basic start ***************************************/
+/*************************************** Basic editor start ***************************************/
+.ProseMirror {
+  font-size: 14px;
+  line-height: 22px;
+  word-break: break-all;
+  outline: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 4px;
+}
+.ProseMirror h1 {
+  font-size: 28px;
+  line-height: 56px;
+}
+.ProseMirror h2 {
+  font-size: 24px;
+  line-height: 48px;
+}
+.ProseMirror h3 {
+  font-size: 20px;
+  line-height: 36px;
+}
+.ProseMirror h4 {
+  font-size: 18px;
+  line-height: 32px;
+}
+.ProseMirror h5 {
+  font-size: 16px;
+  line-height: 28px;
+}
+.ProseMirror h6 {
+  font-size: 14px;
+}
+.ProseMirror p {
+  min-height: 22px;
+  margin-bottom: 4px;
+}
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 14px;
+  margin-bottom: 4px;
+}
+.ProseMirror blockquote {
+  position: relative;
+  padding-left: 0.75rem;
+  margin-bottom: 4px;
+}
+.ProseMirror blockquote::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 2px;
+  border-radius: 1px;
+  background-color: rgba(100, 100, 100, 0.2);
+}
+.ProseMirror code {
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.25rem;
+  background: rgba(150, 150, 150, 0.1);
+  border: 1px solid rgba(100, 100, 100, 0.2);
+  vertical-align: bottom;
+}
+.ProseMirror pre {
+  background: #0d0d0d;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-family: "JetBrainsMono", monospace;
+  padding: 0.5rem 0.75rem;
+  white-space: pre-wrap;
+  margin-bottom: 4px;
+}
+.ProseMirror pre code {
+  padding: 0;
+  background: none;
+  font-size: 0.8rem;
+  border: none;
+}
+.ProseMirror img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 2px solid #68cef8;
+}
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid #d8dad9;
+  margin: 0.625rem 0;
+}
+.ProseMirror ul.task {
+  list-style: none;
+  padding: 0;
+}
+.ProseMirror ul.task p {
+  margin: 0;
+}
+.ProseMirror ul.task li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.ProseMirror ul.task li > label {
+  margin: 0.28125rem 0.25rem 0 0;
+  user-select: none;
+}
+.ProseMirror ul.task li > label input {
+  display: block;
+  margin: 0;
+  accent-color: black;
+}
+.ProseMirror ul.task li > div {
+  flex: 1;
+}
+/* 空白编辑器的占位样式 */
+.ProseMirror p.is-editor-empty:first-of-type::before {
+  color: rgba(0, 0, 0, 0.25);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  font-size: 13px;
+}
+.ProseMirror .mention .iicon {
+  vertical-align: text-bottom;
+}
+.ProseMirror .mention.type2 .iicon {
+  margin-right: 2px;
+}
+.ProseMirror:focus-visible {
+  outline: 0;
+}
+.ProseMirror > *:last-child {
+  margin-bottom: 0;
+}
+.doc.ProseMirror {
+  font-size: 15px;
+  line-height: 24px;
+}
+/* 大纲文档样式 */
+ul.nbl {
+  padding-inline-start: 24px;
+}
+ul.nbl .item {
+  position: relative;
+  border-left: 1px solid rgb(222, 224, 227);
+  margin-left: -15px;
+  padding-left: 14px;
+}
+ul.nbl .item .dot {
+  position: absolute;
+  top: 0;
+  left: -12.5px;
+  padding: 3px;
+  cursor: pointer;
+}
+ul.nbl .item .dot div {
+  width: 18px;
+  height: 18px;
+  background-color: rgb(102, 102, 110);
+  border: 6px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+}
+ul.nbl .item .dot:hover div {
+  transform: scale(1.22);
+}
+ul.nbl .item .dot:hover div,
+ul.nbl .item.coll > .dot div {
+  background-color: rgb(51, 51, 55);
+  border-color: rgb(233, 233, 235);
+}
+ul.nbl .item.coll > .item-content > div > ul {
+  display: none;
+}
+.type_dark ul.nbl .item .dot div {
+  background-color: rgb(201, 201, 206);
+  border-color: rgb(20, 20, 20);
+}
+.type_dark ul.nbl .item .dot:hover div,
+.type_dark ul.nbl .item.coll > .dot div {
+  background-color: rgb(201, 201, 206);
+  border-color: rgb(73, 73, 78);
+}
+.type_dark ul.nbl .item {
+  border-color: rgb(73, 73, 78);
+}
+.hljs-comment,
+.hljs-quote {
+  color: #616161;
+}
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attribute,
+.hljs-tag,
+.hljs-name,
+.hljs-regexp,
+.hljs-link,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #f98181;
+}
+.hljs-number,
+.hljs-meta,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params {
+  color: #fbbc88;
+}
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet {
+  color: #b9f18d;
+}
+.hljs-title,
+.hljs-section {
+  color: #faf594;
+}
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #70cff8;
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: 700;
+}
+/*************************************** Basic editor end ***************************************/
+/*********************************** React Grid Layout start ************************************/
+.react-grid-layout {
+  position: relative;
+  transition: height 200ms ease;
+}
+.react-grid-item {
+  transition: all 200ms ease;
+  transition-property: left, top;
+}
+.react-grid-item img {
+  pointer-events: none;
+  user-select: none;
+}
+.react-grid-item.cssTransforms {
+  transition-property: transform;
+}
+.react-grid-item.resizing {
+  z-index: 1;
+  will-change: width, height;
+}
+.react-grid-item.react-draggable-dragging {
+  transition: none;
+  z-index: 3;
+  will-change: transform;
+}
+
+.react-grid-item.dropping {
+  visibility: hidden;
+}
+.react-grid-item.react-grid-placeholder {
+  opacity: 0.1;
+  transition-duration: 100ms;
+  z-index: 2;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.react-grid-item > .react-resizable-handle-se {
+  position: absolute;
+  width: 10px;
+  height: 34px;
+  bottom: -1px;
+  right: -5px;
+  cursor: se-resize;
+}
+.react-grid-item > .react-resizable-handle-se::after {
+  content: "";
+  position: absolute;
+  right: 4px;
+  bottom: 0;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+.react-grid-item > .react-resizable-handle-e {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  bottom: 0;
+  right: -5px;
+  cursor: ew-resize;
+}
+.react-grid-item > .react-resizable-handle-e::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  transform: rotate(135deg);
+}
+/* .react-grid-item > .react-resizable-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+.react-grid-item > .react-resizable-handle::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 5px;
+  height: 5px;
+  border-right: 2px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+}
+.react-resizable-hide > .react-resizable-handle {
+  display: none;
+}
+.react-grid-item > .react-resizable-handle.react-resizable-handle-sw {
+  bottom: 0;
+  left: 0;
+  cursor: sw-resize;
+  transform: rotate(90deg);
+}
+.react-grid-item > .react-resizable-handle.react-resizable-handle-se {
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+}
+.react-grid-item > .react-resizable-handle.react-resizable-handle-nw {
+  top: 0;
+  left: 0;
+  cursor: nw-resize;
+  transform: rotate(180deg);
+}
+.react-grid-item > .react-resizable-handle.react-resizable-handle-ne {
+  top: 0;
+  right: 0;
+  cursor: ne-resize;
+  transform: rotate(270deg);
+}
+.react-grid-item > .react-resizable-handle.react-resizable-handle-w,
+.react-grid-item > .react-resizable-handle.react-resizable-handle-e {
+  top: 50%;
+  margin-top: -10px;
+  cursor: ew-resize;
+}
+.react-grid-item > .react-resizable-handle.react-resizable-handle-w {
+  left: 0;
+  transform: rotate(135deg);
+}
+.react-grid-item > .react-resizable-handle.react-resizable-handle-e {
+  right: 0;
+  transform: rotate(315deg);
+}
+.react-grid-item > .react-resizable-handle.react-resizable-handle-n,
+.react-grid-item > .react-resizable-handle.react-resizable-handle-s {
+  left: 50%;
+  margin-left: -10px;
+  cursor: ns-resize;
+}
+.react-grid-item > .react-resizable-handle.react-resizable-handle-n {
+  top: 0;
+  transform: rotate(225deg);
+}
+.react-grid-item > .react-resizable-handle.react-resizable-handle-s {
+  bottom: 0;
+  transform: rotate(45deg);
+} */
+/************************************ React Grid Layout end *************************************/

@@ -1,0 +1,42 @@
+# 服务器配置
+Server:
+  # debug/release/test
+  RunMode: debug
+  HttpPort: 6789
+  HttpSSEPort: 6788
+  ReadTimeout: 60
+  WriteTimeout: 60
+# 应用配置
+App:
+  DefaultPageSize: 10
+  MaxPageSize: 100
+  LogSavePath: storage/logs
+  LogFileName: app
+  LogFileExt: .log
+# Jwt 配置
+Jwt:
+  Secret: QAqW4ak1tnXja2g42EpVvh2w8dFMJ9bT
+  Expire: 2592000
+# 数据库配置
+Database:
+  DBType: mysql
+  Username: root
+  Password: root
+  Host: 127.0.0.1:3307
+  DBName: cardcool
+  TablePrefix: ""
+  Charset: utf8mb4
+  ParseTime: true
+  MaxIdleConns: 3
+  MaxOpenConns: 20
+# Redis 配置
+Redis:
+  Address: 127.0.0.1:6380
+  Password: ""
+  DB: 0
+# 七牛云存储
+Qiniu:
+  AccessKey: 
+  SecretKey: 
+  Bucket: 
+  ExpireTime: 7200

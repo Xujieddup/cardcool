@@ -1,0 +1,270 @@
+type Query {
+  pullSpace(checkpoint: InputCheckpoint, limit: Int!): SpacePullBulk!
+  pullType(checkpoint: InputCheckpoint, limit: Int!): TypePullBulk!
+  pullCard(checkpoint: InputCheckpoint, limit: Int!): CardPullBulk!
+  pullTag(checkpoint: InputCheckpoint, limit: Int!): TagPullBulk!
+  pullView(checkpoint: InputCheckpoint, limit: Int!): ViewPullBulk!
+  pullViewnode(checkpoint: InputCheckpoint, limit: Int!): ViewnodePullBulk!
+  pullViewedge(checkpoint: InputCheckpoint, limit: Int!): ViewedgePullBulk!
+}
+
+type Mutation {
+  pushSpace(spacePushRow: [SpaceInputPushRow]): [Space!]!
+  pushType(typePushRow: [TypeInputPushRow]): [Type!]!
+  pushCard(cardPushRow: [CardInputPushRow]): [Card!]!
+  pushTag(tagPushRow: [TagInputPushRow]): [Tag!]!
+  pushView(viewPushRow: [ViewInputPushRow]): [View!]!
+  pushViewnode(viewnodePushRow: [ViewnodeInputPushRow]): [Viewnode!]!
+  pushViewedge(viewedgePushRow: [ViewedgeInputPushRow]): [Viewedge!]!
+}
+
+type Space {
+  id: String!
+  name: String!
+  icon: String!
+  desc: String!
+  snum: Int!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+type Checkpoint {
+  update_time: Float!
+}
+type SpacePullBulk {
+  documents: [Space]!
+  checkpoint: Checkpoint!
+}
+type Type {
+  id: String!
+  name: String!
+  icon: String!
+  snum: Int!
+  props: String!
+  styles: String!
+  desc: String!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+type TypePullBulk {
+  documents: [Type]!
+  checkpoint: Checkpoint!
+}
+type Card {
+  id: String!
+  space_id: String!
+  type_id: String!
+  name: String!
+  tags: String!
+  links: String!
+  props: String!
+  content: String!
+  create_time: Int!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+type CardPullBulk {
+  documents: [Card]!
+  checkpoint: Checkpoint!
+}
+type Tag {
+  id: String!
+  name: String!
+  space_id: String!
+  pid: String!
+  color: String!
+  snum: Int!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+type TagPullBulk {
+  documents: [Tag]!
+  checkpoint: Checkpoint!
+}
+type View {
+  id: String!
+  name: String!
+  space_id: String!
+  pid: String!
+  snum: Int!
+  type: Int!
+  inline_type: Int!
+  is_favor: Boolean!
+  icon: String!
+  desc: String!
+  config: String!
+  content: String!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+type ViewPullBulk {
+  documents: [View]!
+  checkpoint: Checkpoint!
+}
+type Viewnode {
+  id: String!
+  view_id: String!
+  group_id: String!
+  pid: String!
+  node_type: Int!
+  node_id: String!
+  vn_type_id: String!
+  name: String!
+  content: String!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+type ViewnodePullBulk {
+  documents: [Viewnode]!
+  checkpoint: Checkpoint!
+}
+type Viewedge {
+  id: String!
+  view_id: String!
+  source: String!
+  target: String!
+  source_handle: String!
+  target_handle: String!
+  ve_type_id: String!
+  name: String!
+  content: String!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+type ViewedgePullBulk {
+  documents: [Viewedge]!
+  checkpoint: Checkpoint!
+}
+input SpaceInput {
+  id: String!
+  name: String!
+  icon: String!
+  desc: String!
+  snum: Int!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+input SpaceInputPushRow {
+  assumedMasterState: SpaceInput
+  newDocumentState: SpaceInput!
+}
+input InputCheckpoint {
+  update_time: Float!
+}
+input TypeInput {
+  id: String!
+  name: String!
+  icon: String!
+  snum: Int!
+  props: String!
+  styles: String!
+  desc: String!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+input TypeInputPushRow {
+  assumedMasterState: TypeInput
+  newDocumentState: TypeInput!
+}
+input CardInput {
+  id: String!
+  space_id: String!
+  type_id: String!
+  name: String!
+  tags: String!
+  links: String!
+  props: String!
+  content: String!
+  create_time: Int!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+input CardInputPushRow {
+  assumedMasterState: CardInput
+  newDocumentState: CardInput!
+}
+input TagInput {
+  id: String!
+  name: String!
+  space_id: String!
+  pid: String!
+  color: String!
+  snum: Int!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+input TagInputPushRow {
+  assumedMasterState: TagInput
+  newDocumentState: TagInput!
+}
+input ViewInput {
+  id: String!
+  name: String!
+  space_id: String!
+  pid: String!
+  snum: Int!
+  type: Int!
+  inline_type: Int!
+  is_favor: Boolean!
+  icon: String!
+  desc: String!
+  config: String!
+  content: String!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+input ViewInputPushRow {
+  assumedMasterState: ViewInput
+  newDocumentState: ViewInput!
+}
+input ViewnodeInput {
+  id: String!
+  view_id: String!
+  group_id: String!
+  pid: String!
+  node_type: Int!
+  node_id: String!
+  vn_type_id: String!
+  name: String!
+  content: String!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+input ViewnodeInputPushRow {
+  assumedMasterState: ViewnodeInput
+  newDocumentState: ViewnodeInput!
+}
+input ViewedgeInput {
+  id: String!
+  view_id: String!
+  source: String!
+  target: String!
+  source_handle: String!
+  target_handle: String!
+  ve_type_id: String!
+  name: String!
+  content: String!
+  update_time: Float!
+  is_deleted: Boolean!
+  deleted: Boolean!
+}
+input ViewedgeInputPushRow {
+  assumedMasterState: ViewedgeInput
+  newDocumentState: ViewedgeInput!
+}
+schema {
+  query: Query
+  mutation: Mutation
+}

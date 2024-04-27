@@ -1,0 +1,16 @@
+.impowerBox .title {
+  display: none;
+}
+.impowerBox .qrcode {
+  margin-top: 10px;
+  border: none;
+}
+.impowerBox .info .js_wx_default_tip p:nth-child(2) {
+  display: none;
+}
+.impowerBox .info .status_icon {
+  display: none;
+}
+.impowerBox .status {
+  text-align: center;
+}

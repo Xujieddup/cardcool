@@ -1,0 +1,461 @@
+import React, {
+  CSSProperties,
+  ReactNode,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
+import type { CardObj, CardTag, RuleConfig, StyledToken, Task } from "@/types"
+import { App, Button, ConfigProvider, Layout, Table, Typography, theme } from "antd"
+import { ExclamationCircleFilled } from "@ant-design/icons"
+import { CardNodeView } from "@/views/card"
+import { useConfigStore, useDBStore, useModelStore } from "@/store"
+import type {
+  GetDBTypes,
+  UseMCardId,
+  GCardOp,
+  GetColors,
+  SRuleOpenTime,
+  GetTagMap,
+  SetMCardId,
+} from "@/store"
+import { shallow } from "zustand/shallow"
+import { deleteCard, queryCards } from "@/datasource"
+import styled from "@emotion/styled"
+import { IFlexC, IFlexRB, IconBtn } from "@/ui"
+import { OpEnum } from "@/enums"
+import { useDraggable, useDroppable } from "@dnd-kit/core"
+import { GanttBase } from "@/gantt"
+import dayjs from "dayjs"
+import { bind, clear } from "size-sensor"
+import { IIcon } from "@/icons"
+import cc from "classcat"
+import { ColumnsType } from "antd/es/table"
+import { TableRowSelection } from "antd/es/table/interface"
+
+const cardSelector: UseMCardId = (state) => [state.mCardId, state.setMCardId]
+const ruleOpenSelector: SRuleOpenTime = (state) => state.setRuleOpenTime
+const cardOpSelector: GCardOp = (state) => state.cardOp
+const dbTypesSelector: GetDBTypes = (state) => [state.db, state.types]
+const tagSelector: GetTagMap = (state) => state.tagMap
+const colorsSelector: GetColors = (state) => state.colors
+
+const genTasks = (): Task[] => {
+  const names = [
+    ["Redesign website", [0, 7]],
+    ["Write new content", [1, 4]],
+    ["Apply new styles", [3, 6]],
+    ["Review heihei", [7, 7]],
+    ["Deploy haha", [8, 9]],
+    ["Go Live!!", [10, 10]],
+    ["Redesign website", [0, 7]],
+    ["Write new content", [1, 4]],
+    ["Apply new styles", [3, 6]],
+    ["Review heihei", [7, 7]],
+    ["Deploy haha", [8, 9]],
+    ["Go Live!!", [10, 10]],
+    ["Redesign website", [0, 7]],
+    ["Write new content", [1, 4]],
+    ["Apply new styles", [3, 6]],
+    ["Review heihei", [7, 7]],
+    ["Deploy haha", [8, 9]],
+    ["Go Live!!", [10, 10]],
+    ["Redesign website", [0, 7]],
+    ["Write new content", [1, 4]],
+    ["Apply new styles", [3, 6]],
+    ["Review heihei", [7, 7]],
+    ["Deploy haha", [8, 9]],
+    ["Go Live!!", [10, 10]],
+    ["Redesign website", [0, 7]],
+    ["Write new content", [1, 4]],
+    ["Apply new styles", [3, 6]],
+    ["Review heihei", [7, 7]],
+    ["Deploy haha", [8, 9]],
+    ["Go Live!!", [10, 10]],
+    ["Redesign website", [0, 7]],
+    ["Write new content", [1, 4]],
+    ["Apply new styles", [3, 6]],
+    ["Review heihei", [7, 7]],
+    ["Deploy haha", [8, 9]],
+    ["Go Live!!", [10, 10]],
+    ["Redesign website", [0, 7]],
+    ["Write new content", [1, 4]],
+    ["Apply new styles", [3, 6]],
+    ["Review heihei", [7, 7]],
+    ["Deploy haha", [8, 9]],
+    ["Go Live!!", [10, 10]],
+  ]
+  return names.map(function (name, i) {
+    const start = dayjs().add(name[1][0] as number, "day")
+    const end = dayjs().add(name[1][1] as number, "day")
+    return {
+      id: "Task " + i,
+      name: name[0] as string,
+      start: start,
+      end: end,
+      progress: Math.floor(Math.random() * 100),
+    }
+  })
+}
+
+type Props = { spaceId: string; ruleCfg: RuleConfig; keyword: string }
+
+export const GanttBoxBack = memo(({ spaceId, ruleCfg, keyword }: Props) => {
+  const [db, types] = useDBStore(dbTypesSelector, shallow)
+  const tagMap = useDBStore(tagSelector)
+  const colors = useConfigStore(colorsSelector)
+  const { token } = theme.useToken()
+  const { message, modal } = App.useApp()
+  const [refreshTime, setRefreshTime] = useState(0)
+  const [mCardId, setMCardId] = useModelStore(cardSelector, shallow)
+  const setRuleOpenTime = useModelStore(ruleOpenSelector)
+  // const [list, setList] = useState<CardObj[]>([])
+  const [tasks, setTasks] = useState<Task[]>([])
+  const ganttRef = useRef<HTMLDivElement>(null)
+  const ganttInsRef = useRef<GanttBase | null>(null)
+  // const [ganttIns, setGanttIns] = useState<GanttBase | null>(null)
+  const [siderOpen, setSiderOpen] = useState(true)
+
+  useEffect(() => {
+    // init the Gantt, if exist, return
+    const gantt = ganttRef.current
+    if (ganttInsRef.current || !gantt) return
+    // new instance
+    const ins = new GanttBase(gantt, {
+      onDbClick: (setMCardId: SetMCardId) => {
+        console.log("double click")
+      },
+      on_click: (task: Task) => {
+        console.log("click", task)
+        setMCardId(task.id)
+      },
+      // on_date_change: onDateChange || noop,
+      // on_progress_change: onProgressChange || noop,
+    })
+    // ins.change_view_mode(viewMode)
+    // bind(ganttWrapper, () => {
+    //   ins.refresh(tasks)
+    // })
+    ganttInsRef.current = ins
+    // setGanttIns(ins)
+    // return () => clear(ganttWrapper)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  // 查询卡片数据
+  useEffect(() => {
+    if (db) {
+      queryCards(db, spaceId, ruleCfg, types).then(([groups, groupers]) => {
+        console.log("queryCards", ruleCfg, groups["all"], groupers)
+        const taskList = groups["all"].map((c: CardObj) => {
+          // 格式化开始时间和结束时间
+          // 开始时间和结束时间都为空，则不显示时间线 - invalid
+          // 开始时间和结束时间存在一个，则显示对应日期
+          // 开始时间和结束时间同时存在，且开始时间小于结束时间，则显示时间区间
+          // 开始时间和结束时间同时存在，但开始时间大于结束时间，则显示开始时间
+          // 结束时间不能超过 5000 年
+          return {
+            id: c.id,
+            name: c.name,
+            start: c.propsObj["TwQKgoxq8IvZ"]
+              ? dayjs(c.propsObj["TwQKgoxq8IvZ"], "YYYY-MM-DD")
+              : dayjs(),
+            end: c.propsObj["TwQKhO1LWHaJ"]
+              ? dayjs(c.propsObj["TwQKhO1LWHaJ"], "YYYY-MM-DD")
+              : dayjs(),
+            progress: parseInt(Math.random() * 100 + "", 10),
+            // start: dayjs(c.propsObj["TwQKgoxq8IvZ"], "YYYY-MM-DD").toDate(),
+            // end: dayjs(c.propsObj["TwQKhO1LWHaJ"], "YYYY-MM-DD").toDate(),
+            // customClass: "",
+          }
+        })
+        console.log("taskList", taskList)
+        ganttInsRef.current?.refresh(taskList)
+        setTasks(taskList)
+        // initData = true
+        // groupersRef.current = groupers
+        // setData(groups)
+      })
+    }
+  }, [db, types, spaceId, ruleCfg])
+
+  // 监听卡片操作状态
+  const cardOp = useDBStore(cardOpSelector)
+  useEffect(() => {
+    // console.log("ListView - ListenCardOp", cardOp)
+    if (cardOp !== undefined) {
+      switch (cardOp.op) {
+        case OpEnum.ADD:
+        case OpEnum.UPDATE:
+          // 新增和更新卡片: 直接刷新页面
+          setRefreshTime(Date.now())
+          break
+        case OpEnum.DELETE:
+          // deleteCardData(cardOp.id)
+          break
+      }
+    }
+  }, [cardOp])
+  // 删除确认
+  const showDeleteConfirm = useCallback(
+    (id: string) => {
+      modal.confirm({
+        title: "确认删除卡片？",
+        icon: <ExclamationCircleFilled />,
+        content: "仅会删除卡片内容，白板中卡片对应节点将自动重置为卡片标题！",
+        okText: "确认",
+        okType: "danger",
+        cancelText: "取消",
+        onOk: () => {
+          db &&
+            deleteCard(db, id)
+              .then(() => {
+                mCardId === id && setMCardId()
+                // deleteCardData(id)
+                message.success("删除卡片成功")
+              })
+              .catch((err) => {
+                console.error("删除卡片出现异常", err)
+                message.error("删除卡片出现异常")
+              })
+        },
+      })
+    },
+    [db, mCardId, message, modal, setMCardId]
+  )
+  console.log("Render: Gantt")
+  // useEffect(() => {
+  //   if (ganttInsRef.current) {
+  //     ganttInsRef.current.refresh(tasks)
+  //     // ganttIns.change_view_mode(viewMode)
+  //   }
+  // }, [tasks])
+  interface DataType {
+    key: string
+    id: string
+    name: string
+    create_date: string
+    children?: DataType[]
+  }
+
+  const columns: ColumnsType<DataType> = [
+    {
+      key: "id",
+      title: "id",
+      dataIndex: "id",
+      width: 200,
+      fixed: "left",
+      ellipsis: true,
+    },
+    {
+      key: "name",
+      title: "name",
+      dataIndex: "name",
+      width: 200,
+      ellipsis: true,
+    },
+    {
+      key: "create_date",
+      title: "create_date",
+      dataIndex: "create_date",
+      width: 200,
+      ellipsis: true,
+    },
+  ]
+  // interface DataType {
+  //   key: React.Key
+  //   name: string
+  //   age: number
+  //   address: string
+  // }
+  // const columns: ColumnsType<DataType> = [
+  //   {
+  //     title: "Name",
+  //     dataIndex: "name",
+  //     width: 150,
+  //     ellipsis: true,
+  //   },
+  //   {
+  //     title: "Age",
+  //     dataIndex: "age",
+  //     width: 150,
+  //     ellipsis: true,
+  //   },
+  //   {
+  //     title: "Address",
+  //     dataIndex: "address",
+  //     ellipsis: true,
+  //   },
+  // ]
+  // const data: DataType[] = []
+  // for (let i = 0; i < 100; i++) {
+  //   data.push({
+  //     key: i,
+  //     name: `Edward King ${i}`,
+  //     age: 32,
+  //     address: `London, Park Lane no. ${i}`,
+  //   })
+  // }
+  const data = useMemo(
+    () =>
+      tasks.map((t) => ({
+        key: t.id,
+        id: t.id,
+        name: t.name,
+        // create_date: t.start.format("YYYY-MM-DD"),
+      })),
+    [tasks]
+  )
+
+  const handleMouseMove = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    // console.log("handleMouseMove", event, event.clientY)
+    // const scrollTop = this.mainElementRef.current?.scrollTop || 0
+    // const { top } = this.mainElementRef.current?.getBoundingClientRect() || {
+    //   top: 0,
+    // }
+    // // 内容区高度
+    // const contentHeight = this.getBarList.length * this.rowHeight
+    // const offsetY = event.clientY - top + scrollTop
+    // if (offsetY - contentHeight > TOP_PADDING) {
+    //   this.showSelectionIndicator = false
+    // } else {
+    //   const topValue = Math.floor((offsetY - TOP_PADDING) / this.rowHeight) * this.rowHeight + TOP_PADDING
+    //   this.showSelectionIndicator = true
+    //   this.selectionIndicatorTop = topValue
+    // }
+  }, [])
+  const handleMouseLeave = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    // console.log("handleMouseLeave", event)
+  }, [])
+
+  // console.log("token.Table", JSON.stringify(token))
+  return (
+    <GanttContainer>
+      <GanttLayout
+        hasSider
+        style={{ borderColor: token.colorBorderSecondary }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        token={token}
+      >
+        <GanttSider
+          width={380}
+          collapsed={!siderOpen}
+          collapsible
+          collapsedWidth={0}
+          trigger={null}
+          style={{ backgroundColor: token.colorBgContainer }}
+        >
+          <ConfigProvider
+            theme={{
+              components: {
+                Table: { headerBg: token.colorBgLayout, headerBorderRadius: 0 },
+              },
+            }}
+          >
+            <Table
+              columns={columns}
+              dataSource={data}
+              pagination={false}
+              size="small"
+              bordered
+              scroll={{ x: 380 }}
+            />
+          </ConfigProvider>
+          {/* <SwitchBtn
+          className={cc({ siderOpen })}
+          token={token}
+          onClick={() => setSiderOpen((o) => !o)}
+        >
+          <IIcon icon="arrowleft" />
+        </SwitchBtn> */}
+        </GanttSider>
+        <GanttMain className="gantt" ref={ganttRef}>
+          <GanttHeader className="ganttHeader" />
+          <GanttBody className="ganttBody" token={token} />
+        </GanttMain>
+      </GanttLayout>
+    </GanttContainer>
+  )
+})
+const GanttContainer = styled("div")({
+  height: 893,
+})
+const GanttLayout = styled(Layout)(({ token }: StyledToken) => ({
+  // overflow: "hidden",
+  border: "1px solid transparent",
+  borderRadius: 8,
+}))
+const GanttSider = styled(Layout.Sider)({
+  height: "100%",
+  // paddingRight: 20,
+  ".ant-table .ant-table-container thead.ant-table-thead>tr>th": {
+    padding: "16px 8px",
+  },
+  ".ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container": {
+    border: "none",
+  },
+  ".ant-table-wrapper .ant-table-tbody >tr >td": {
+    borderBottom: "none",
+  },
+})
+const GanttMain = styled(Layout)({
+  height: "100%",
+  // overflowX: "auto",
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+})
+const GanttHeader = styled("div")({
+  height: 55,
+  overflow: "hidden",
+  // position: "relative",
+})
+const GanttBody = styled("div")(({ token }: StyledToken) => ({
+  backgroundColor: token.colorBgContainer,
+  flex: 1,
+  // minWidth: "100%",
+  // height: "100%",
+  // paddingTop: 55,
+  overflowY: "auto",
+  overflowX: "auto",
+  ".ganttDate": {
+    minWidth: "100%",
+    height: 55,
+    display: "block",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    backgroundColor: token.colorBgLayout,
+  },
+  ".ganttContent": {
+    minWidth: "100%",
+    display: "block",
+  },
+}))
+const SwitchBtn = styled("div")(({ token }: StyledToken) => ({
+  position: "absolute",
+  right: -19,
+  top: "50%",
+  transform: "translate(0, -50%) scaleY(1.5)",
+  zIndex: 1,
+  cursor: "pointer",
+  borderRadius: "0 4px 4px 0",
+  border: "1px solid " + token.colorPrimary,
+  borderLeft: 0,
+  padding: "1px 0",
+  backgroundColor: token.colorPrimary,
+  ".anticon": {
+    display: "block",
+    transform: "rotate(180deg)",
+    opacity: 0.5,
+  },
+  "&.siderOpen": {
+    backgroundColor: "inherit",
+    ".anticon": {
+      transform: "rotate(0deg)",
+    },
+  },
+}))

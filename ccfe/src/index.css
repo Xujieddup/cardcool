@@ -1,0 +1,144 @@
+/* @tailwind base;
+@tailwind components; */
+@tailwind utilities;
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+canvas {
+  display: block;
+}
+.hide {
+  display: none;
+}
+.hidden {
+  visibility: hidden;
+}
+
+.ml2 {
+  margin-left: 2px;
+}
+.ml4 {
+  margin-left: 4px;
+}
+.ml8 {
+  margin-left: 8px;
+}
+.mr2 {
+  margin-right: 2px;
+}
+.mr4 {
+  margin-right: 4px;
+}
+.mr8 {
+  margin-right: 8px;
+}
+.mb8 {
+  margin-bottom: 8px;
+}
+.mt4 {
+  margin-top: 4px;
+}
+.mt16 {
+  margin-top: 16px;
+}
+.ant-typography.pl0 {
+  padding-left: 0;
+}
+.prefixText {
+  font-size: 12px;
+  opacity: 0.6;
+}
+.textLeft {
+  text-align: left;
+}
+/* 颜色选择按钮 */
+.colorBtn {
+  vertical-align: bottom;
+  min-width: 32px;
+}
+.colorBtn:hover {
+  transition: 0.3s;
+  transform: scale(1.2);
+}
+.smallIcon {
+  font-size: 12px;
+}
+/* image resize */
+.image-resizer {
+  display: inline-flex;
+  position: relative;
+  flex-grow: 0;
+}
+.image-resizer .resize-trigger {
+  position: absolute;
+  right: -6px;
+  bottom: -9px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #3259a5;
+}
+.image-resizer:hover .resize-trigger {
+  opacity: 1;
+}
+/* icon style */
+.ifont {
+  font-size: 16px;
+}
+/* 列表视图中卡片属性样式 */
+.cardPropLine {
+  /* display: flex; */
+  /* align-items: center; */
+  /* float: left; */
+  margin-bottom: 1px;
+  word-break: break-all;
+}
+.cardPropLine .propName {
+  font-size: 12px;
+  line-height: 22px;
+  margin-right: 6px;
+  vertical-align: bottom;
+  opacity: 0.45;
+}
+/* Kanban */
+/* .insertBefore::after,
+.insertAfter::after {
+  content: "";
+  position: absolute;
+  background-color: #4c9ffe;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+.insertBefore::after {
+  top: -5px;
+}
+.insertAfter::after {
+  bottom: -5px;
+} */
+/* 以下作废 */
+.iconItemList .ant-dropdown-menu {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+/* 弹出菜单 */
+/* .MuiPaper-root {
+  z-index: 5555;
+} */
+
+/* flow graph styles */
+/* .react-flow__node {
+  user-select: text;
+} */
+/* .react-flow__node.selectable.selected,
+.react-flow__node.selectable:focus,
+.react-flow__node.selectable:focus-visible {
+  outline: none;
+} */
+
+/* .react-flow__resize-control.line {
+  border: 2px solid transparent;
+} */

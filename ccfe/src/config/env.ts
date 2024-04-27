@@ -1,0 +1,10 @@
+export const API_URL = import.meta.env.VITE_API_URL
+export const NOTICE_URL = import.meta.env.VITE_NOTICE_URL
+export const GRAPHQL_URL = import.meta.env.VITE_GRAPHQL_URL
+export const GRAPHQL_PULL_CNT = import.meta.env.VITE_GRAPHQL_PULL_CNT
+export const INVITE_URL = import.meta.env.VITE_INVITE_URL
+export const STATIC_URL = import.meta.env.VITE_STATIC_URL
+export const QUERY_CARD_CNT = import.meta.env.VITE_QUERY_CARD_CNT
+export const APP_ID = import.meta.env.VITE_APP_ID
+export const QRCODE = import.meta.env.VITE_QRCODE
+export const CLIENT_VERSION = import.meta.env.VITE_CLIENT_VERSION

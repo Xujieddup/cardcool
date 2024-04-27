@@ -1,0 +1,113 @@
+/*
+Icon classes can be used entirely standalone. They are named after their original file names.
+
+Example usage in HTML:
+
+`display: block` sprite:
+<div class="icon-home"></div>
+
+To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+
+// CSS
+.icon {
+  display: inline-block;
+}
+
+// HTML
+<i class="icon icon-home"></i>
+*/
+.icon {
+  display: inline-block;
+  background-image: url(./emojis.png);
+  background-size: 108px;
+  width: 18px;
+  height: 18px;
+  vertical-align: sub;
+}
+.icon-e_100 {
+  background-position: 0px 0px;
+}
+.icon-e_ai {
+  background-position: -18px 0px;
+}
+.icon-e_anger {
+  background-position: 0px -18px;
+}
+.icon-e_bord {
+  background-position: -18px -18px;
+}
+.icon-e_cold {
+  background-position: -36px 0px;
+}
+.icon-e_cool {
+  background-position: -36px -18px;
+}
+.icon-e_cry {
+  background-position: 0px -36px;
+}
+.icon-e_dai {
+  background-position: -18px -36px;
+}
+.icon-e_flagcn {
+  background-position: -36px -36px;
+}
+.icon-e_freeze {
+  background-position: -54px 0px;
+}
+.icon-e_ghost {
+  background-position: -54px -18px;
+}
+.icon-e_hacry {
+  background-position: -54px -36px;
+}
+.icon-e_haha {
+  background-position: 0px -54px;
+}
+.icon-e_han {
+  background-position: -18px -54px;
+}
+.icon-e_hand {
+  background-position: -36px -54px;
+}
+.icon-e_hat {
+  background-position: -54px -54px;
+}
+.icon-e_heart {
+  background-position: -72px 0px;
+}
+.icon-e_hot {
+  background-position: -72px -18px;
+}
+.icon-e_infity {
+  background-position: -72px -36px;
+}
+.icon-e_mask {
+  background-position: -72px -54px;
+}
+.icon-e_ok {
+  background-position: 0px -72px;
+}
+.icon-e_se {
+  background-position: -18px -72px;
+}
+.icon-e_shit {
+  background-position: -36px -72px;
+}
+.icon-e_shy {
+  background-position: -54px -72px;
+}
+.icon-e_smirk {
+  background-position: -72px -72px;
+}
+.icon-e_ufo {
+  background-position: -90px 0px;
+}
+.icon-e_whiteeye {
+  background-position: -90px -18px;
+}
+.icon-e_xia {
+  background-position: -90px -36px;
+}
+.icon-e_xin {
+  background-position: -90px -54px;
+}

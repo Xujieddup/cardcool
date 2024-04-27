@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  mysql:
+    restart: always
+    image: mariadb:10.3
+    container_name: mariadb
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./store/:/var/lib/mysql
+    mem_limit: 512m
+    networks:
+      - cardcoolnetwork
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=local
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+
+  redis-server:
+    restart: always
+    image: redis:4.0
+    container_name: redis-server
+    command: /bin/bash -c 'redis-server --appendonly yes'
+    sysctls:
+      - net.core.somaxconn=65535
+    ports:
+      - "6380:6379"
+    volumes:
+      - ./redis:/data
+    mem_limit: 96m
+    networks:
+      - cardcoolnetwork
+volumes:
+  mysql:
+    driver: local
+  redis:
+    driver: local
+
+networks:
+  cardcoolnetwork:
+    driver: bridge
