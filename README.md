@@ -4,9 +4,24 @@
 
 Slogan：组织碎片信息，构建知识模型！
 
-简介：可离线使用的个人笔记应用，以可自定义结构的卡片作为基石，自由组织各种视图，构建多维度的知识模型。可以按规则对卡片进行筛选、分组、排序等操作，还可在白板上自由排列卡片(可视化笔记)！
+简介：可离线使用的个人笔记应用，以可自定义结构的卡片作为基石，自由组织各种视图(列表、白板、文档、看板等)，构建多维度的知识模型。可以按规则对卡片进行筛选、分组、排序等操作，还可在白板上自由排列卡片(可视化笔记)！
 
-## 软件架构
+备注：本人是一个拥有九年研发经验的初级 PHP 程序员，中级 CURD 工程师，高级 Ctrl C/V 架构师，用一年多的业余时间，实现了这么一款笔记软件的基本功能，但 2024 年开年以来，工作任务翻倍，加上行业不景气，面临裁员困境，实在无心继续开发和维护，所以直接开源 =.=!
+
+PS: 本项目所用的 golang 和 react 都是业务自学的，代码水平有限，请谅解！
+
+### 界面样式
+
+[](./imgs/1.png)
+[](./imgs/2.png)
+[](./imgs/3.png)
+[](./imgs/5.png)
+[](./imgs/6.png)
+[](./imgs/7.png)
+[](./imgs/8.png)
+[](./imgs/9.png)
+
+## 技术栈
 
 ### 后端技术栈
 
@@ -61,43 +76,6 @@ npm install
 npm run dev
 ```
 
+- 访问 http://localhost:5173/
 - 初始账号：00000000000
 - 初始密码：Abc123!
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-#### 特技
-
-1.  使用 Readme_XXX.md 来支持不同的语言，例如 Readme_en.md, Readme_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
-
-# Documents
-
-- go run github.com/99designs/gqlgen generate
-
-## 发布流程
-
-- 合并 dev 到 master，master 不能合并到 dev!!!
-- 更新 package.json 和 .env.production 中的版本号
-- 前端打包: npm install & npm run build
-
-```
-- 后台启动：nohup ./main &
-- 查看进程：ps -ef | grep main
-- 杀死进程：kill -9 8814
-```
